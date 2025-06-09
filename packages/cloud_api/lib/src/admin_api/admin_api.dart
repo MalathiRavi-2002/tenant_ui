@@ -4,7 +4,7 @@ import '../admin_api/admin_api.dart';
 export './models.dart';
 
 class Api extends ApiBase {
-  Api({required String basePath}) : super(basePath: '$basePath/manage');
+  Api({required String basePath}) : super(basePath: '$basePath/rest/manage');
 
   AsyncResult<AdminLoginResponse> adminLogin(String userId, String password) {
     return post('/super_user_login', {
@@ -14,8 +14,9 @@ class Api extends ApiBase {
   }
 
   AsyncResult<List<OrganizationResponseModel>> organizationList() {
-    return post('/list_organization', {}).map((e) {
+    return get('/list_organization', {}).map((e) {
       final list = e as List<dynamic>;
+      print(list);
       return list.map((item) => OrganizationResponseModel.fromJson(item)).toList();
     });
   }
