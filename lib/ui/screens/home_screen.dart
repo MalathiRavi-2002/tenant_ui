@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final _fpController = TextEditingController();
 
   final SearchController _searchController = SearchController();
+  bool _obscure = true;
 
   // List<OrganizationResponseModel> organizationList = [];
   // List<OrganizationResponseModel> filteredOrganizations = [];
@@ -143,19 +144,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     validator: (value) => value == null || value.isEmpty ? 'Enter Full Name' : null,
                   ),
                   const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _adminPasswordController,
-                    obscureText: true,
-                    obscuringCharacter: '*',
-                    decoration: _inputDecoration('Admin Password'),
-                    validator: (value) => value == null || value.isEmpty ? 'Enter Admin Password' : null,
+
+                  StatefulBuilder(
+                    builder: (context, setLocalState) {
+                      return TextFormField(
+                        controller: _adminPasswordController,
+                        obscureText: _obscure,
+                        obscuringCharacter: '*',
+                        decoration: _inputDecoration('Admin Password').copyWith(
+                          suffixIcon: IconButton(
+                            icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
+                            onPressed: () {
+                              setLocalState(() {
+                                _obscure = !_obscure;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: (value) => value == null || value.isEmpty ? 'Enter Admin Password' : null,
+                      );
+                    },
                   ),
-                  // const SizedBox(height: 10),
-                  // TextFormField(
-                  //   controller: _countryController,
-                  //   decoration: _inputDecoration('Country'),
-                  //   validator: (value) => value == null || value.isEmpty ? 'Enter Country' : null,
-                  // ),
+
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: _bookController,
