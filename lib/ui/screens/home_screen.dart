@@ -1,10 +1,10 @@
 import 'package:cloud_api/admin_api.dart';
 import 'package:flutter/material.dart';
-import 'package:jiffy/jiffy.dart';
+// import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:tenant_ui/providers/auth_provider.dart';
-import 'package:tenant_ui/ui/screens/info_screen.dart';
+// import 'package:tenant_ui/ui/screens/info_screen.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,15 +24,17 @@ class _HomeScreenState extends State<HomeScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _fullNameController = TextEditingController();
-  final _countryController = TextEditingController();
+  final _countryController = TextEditingController(text: 'INDIA');
   final _bookController = TextEditingController();
   final _gstController = TextEditingController();
   final _fpController = TextEditingController();
 
   final SearchController _searchController = SearchController();
 
-  List<OrganizationResponseModel> organizationList = [];
-  List<OrganizationResponseModel> filteredOrganizations = [];
+  // List<OrganizationResponseModel> organizationList = [];
+  // List<OrganizationResponseModel> filteredOrganizations = [];
+  List<String> organizationList = [];
+  List<String> filteredOrganizations = [];
 
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
@@ -96,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       filteredOrganizations =
           organizationList.where((org) {
-            return org.name.toLowerCase().contains(query);
+            return org.toLowerCase().contains(query);
           }).toList();
     });
   }
@@ -204,6 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fullName: _fullNameController.text,
                                   country: _countryController.text,
                                   bookBegin: _bookController.text,
+                                  gstNo: _gstController.text.isNotEmpty ? _gstController.text.trim() : null,
                                   fpCode: int.parse(_fpController.text),
                                 ),
                               )
@@ -254,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if ((e.toString()).contains('Unauthorized')) {
             context.read<AuthProvider>().logout();
           }
-          print('error: ${e.toString()}');
+          // print('error: ${e.toString()}');
         });
   }
 
@@ -396,30 +399,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           children: [
                             Expanded(
-                              flex: 2,
                               child: Text(
                                 'Name',
-                                style: TextStyle(fontWeight: FontWeight.bold, color: headertextColor),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(
-                                'Creataed At',
-                                style: TextStyle(fontWeight: FontWeight.bold, color: headertextColor),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                'Status',
-                                style: TextStyle(fontWeight: FontWeight.bold, color: headertextColor),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(
-                                'Plan Type',
                                 style: TextStyle(fontWeight: FontWeight.bold, color: headertextColor),
                               ),
                             ),
@@ -430,80 +411,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       // Table Row
                       for (final org in filteredOrganizations)
                         InkWell(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => InfoScreen(organization: org)));
-                          },
+                          // onTap: () {
+                          //   Navigator.push(context, MaterialPageRoute(builder: (_) => InfoScreen(organization: org)));
+                          // },
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 16),
                             decoration: BoxDecoration(border: Border(top: BorderSide(color: borderColor))),
-                            child: Row(
-                              children: [
-                                Expanded(flex: 2, child: Text(org.name)),
-                                Expanded(
-                                  flex: 3,
-                                  child: Text(
-                                    Jiffy.parse(org.createdAt ?? '').format(pattern: 'dd MMM yyyy, h:mm:ss a'),
-                                  ),
-                                ),
-
-                                Expanded(flex: 2, child: Text(org.status ?? '')),
-                                Expanded(
-                                  flex: 3,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(org.planType ?? ''),
-                                      ElevatedButton(
-                                        onPressed: () async {
-                                          final api = context.read<Api>();
-                                          final result = await api.validateLicence(org.id);
-                                          result
-                                              .onSuccess((response) {
-                                                showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (context) => AlertDialog(
-                                                        title: Text('License Validation'),
-                                                        content: Text(response.message),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () => Navigator.pop(context),
-                                                            child: Text('OK'),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                );
-                                              })
-                                              .onFailure((error) {
-                                                showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (context) => AlertDialog(
-                                                        title: const Text('Validation Failed'),
-                                                        content: Text(error.toString()),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () => Navigator.pop(context),
-                                                            child: const Text('Close'),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                );
-                                              });
-                                        },
-
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: primaryColor,
-                                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                        ),
-                                        child: Text('Validate License', style: TextStyle(color: Colors.white)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                            child: Row(children: [Expanded(flex: 2, child: Text(org))]),
                           ),
                         ),
                     ],

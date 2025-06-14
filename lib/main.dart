@@ -17,7 +17,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String basePath = (kDebugMode) ? 'http://192.168.1.43:7000' : web.window.location.origin;
+    final String basePath = (kDebugMode) ? 'http://192.168.1.31:3000' : web.window.location.origin;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()..init()),

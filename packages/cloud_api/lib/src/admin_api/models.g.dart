@@ -99,6 +99,7 @@ OrganizationCreateRequest _$OrganizationCreateRequestFromJson(
   country: json['country'] as String,
   bookBegin: json['book_begin'] as String,
   fpCode: (json['fp_code'] as num).toInt(),
+  gstNo: json['gst_no'] as String?,
 );
 
 Map<String, dynamic> _$OrganizationCreateRequestToJson(
@@ -108,6 +109,7 @@ Map<String, dynamic> _$OrganizationCreateRequestToJson(
   'full_name': instance.fullName,
   'country': instance.country,
   'book_begin': instance.bookBegin,
+  'gst_no': instance.gstNo,
   'fp_code': instance.fpCode,
 };
 

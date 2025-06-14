@@ -14,7 +14,6 @@ class AdminLoginResponse {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-@JsonSerializable()
 class Claims {
   final String username;
   final int isu;
@@ -27,7 +26,6 @@ class Claims {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-@JsonSerializable()
 class OrganizationResponse {
   final List<OrganizationResponseModel> data;
 
@@ -38,7 +36,6 @@ class OrganizationResponse {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-@JsonSerializable()
 class OrganizationResponseModel {
   final String id;
   final String name;
@@ -87,12 +84,12 @@ class OrganizationResponseModel {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-@JsonSerializable()
 class OrganizationCreateRequest {
   final String name;
   final String fullName;
   final String country;
   final String bookBegin;
+  final String? gstNo;
   final int fpCode;
 
   OrganizationCreateRequest({
@@ -101,6 +98,7 @@ class OrganizationCreateRequest {
     required this.country,
     required this.bookBegin,
     required this.fpCode,
+    this.gstNo,
   });
 
   factory OrganizationCreateRequest.fromJson(Map<String, dynamic> json) => _$OrganizationCreateRequestFromJson(json);
@@ -109,7 +107,6 @@ class OrganizationCreateRequest {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-@JsonSerializable()
 class OrganizationCreateResponse {
   final String message;
 
