@@ -33,13 +33,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.2"
-  cloud_api:
-    dependency: "direct main"
-    description:
-      path: "packages/cloud_api"
-      relative: true
-    source: path
-    version: "1.0.0"
   collection:
     dependency: transitive
     description:
@@ -380,6 +373,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  tenant_api:
+    dependency: "direct main"
+    description:
+      path: "packages/tenant_api"
+      relative: true
+    source: path
+    version: "1.0.0"
   term_glyph:
     dependency: transitive
     description:

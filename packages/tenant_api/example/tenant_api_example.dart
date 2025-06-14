@@ -1,7 +1,7 @@
-// import 'package:cloud_api/cloud_api.dart';
+// import 'package:tenant_api/tenant_api.dart';
 
 // void main() {
-//   final api = CloudApi(basePath: 'http://192.168.1.73:3000');
+//   final api = TenantApi(basePath: 'http://192.168.1.73:3000');
 //   api.login('919664065171', '1').then((value) {
 //     value
 //         .onSuccess((s) {

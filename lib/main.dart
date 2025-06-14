@@ -1,4 +1,4 @@
-import 'package:cloud_api/admin_api.dart';
+import 'package:tenant_api/admin_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';

@@ -87,6 +87,7 @@ class OrganizationResponseModel {
 class OrganizationCreateRequest {
   final String name;
   final String fullName;
+  final String adminPassword;
   final String country;
   final String bookBegin;
   final String? gstNo;
@@ -95,6 +96,7 @@ class OrganizationCreateRequest {
   OrganizationCreateRequest({
     required this.name,
     required this.fullName,
+    required this.adminPassword,
     required this.country,
     required this.bookBegin,
     required this.fpCode,

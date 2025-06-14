@@ -1,4 +1,4 @@
-import 'package:cloud_api/admin_api.dart';
+import 'package:tenant_api/admin_api.dart';
 import 'package:flutter/material.dart';
 // import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _fullNameController = TextEditingController();
-  final _countryController = TextEditingController(text: 'INDIA');
+  final _adminPasswordController = TextEditingController();
+  // final _countryController = TextEditingController(text: 'INDIA');
   final _bookController = TextEditingController();
   final _gstController = TextEditingController();
   final _fpController = TextEditingController();
@@ -111,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           child: Container(
-            width: 350,
+            width: 450,
             padding: const EdgeInsets.all(20),
             child: Form(
               key: _formKey,
@@ -143,10 +144,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
-                    controller: _countryController,
-                    decoration: _inputDecoration('Country'),
-                    validator: (value) => value == null || value.isEmpty ? 'Enter Country' : null,
+                    controller: _adminPasswordController,
+                    obscureText: true,
+                    obscuringCharacter: '*',
+                    decoration: _inputDecoration('Admin Password'),
+                    validator: (value) => value == null || value.isEmpty ? 'Enter Admin Password' : null,
                   ),
+                  // const SizedBox(height: 10),
+                  // TextFormField(
+                  //   controller: _countryController,
+                  //   decoration: _inputDecoration('Country'),
+                  //   validator: (value) => value == null || value.isEmpty ? 'Enter Country' : null,
+                  // ),
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: _bookController,
@@ -187,8 +196,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: _fpController,
-                    decoration: _inputDecoration('Fp - Code'),
-                    validator: (value) => value == null || value.isEmpty ? 'Enter Fp Code' : null,
+                    decoration: _inputDecoration('Financial Period Code'),
+                    validator: (value) => value == null || value.isEmpty ? 'Enter FP Code' : null,
                   ),
                   const SizedBox(height: 20),
 
@@ -204,7 +213,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 OrganizationCreateRequest(
                                   name: _nameController.text,
                                   fullName: _fullNameController.text,
-                                  country: _countryController.text,
+                                  adminPassword: _adminPasswordController.text,
+                                  country: 'INDIA', //_countryController.text,
                                   bookBegin: _bookController.text,
                                   gstNo: _gstController.text.isNotEmpty ? _gstController.text.trim() : null,
                                   fpCode: int.parse(_fpController.text),
@@ -264,6 +274,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     _searchController.dispose();
+    _nameController.dispose();
+    _fullNameController.dispose();
+    _adminPasswordController.dispose();
+    // _countryController.dispose();
+    _bookController.dispose();
+    _gstController.dispose();
+    _fpController.dispose();
     super.dispose();
   }
 

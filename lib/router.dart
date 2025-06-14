@@ -1,4 +1,4 @@
-import 'package:cloud_api/admin_api.dart';
+import 'package:tenant_api/admin_api.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tenant_ui/ui/screens/home_screen.dart';
 import 'package:tenant_ui/ui/screens/info_screen.dart';
@@ -12,14 +12,11 @@ GoRouter createRouter(AuthProvider authProvider) {
     refreshListenable: authProvider,
     redirect: (context, state) {
       final isAuthenticated = authProvider.isAuthenticated;
-      // print('111111: $isAuthenticated');
       final isLoginPage = state.fullPath == '/login';
       if (!isAuthenticated && !isLoginPage) {
-        // print('222222: $isAuthenticated .......$isLoginPage');
         return '/login';
       }
       if (isAuthenticated && isLoginPage) {
-        // print('33333333: $isAuthenticated........$isLoginPage');
         return '/';
       }
       return null;

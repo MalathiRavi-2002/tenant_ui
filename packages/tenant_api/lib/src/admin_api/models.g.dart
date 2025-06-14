@@ -96,6 +96,7 @@ OrganizationCreateRequest _$OrganizationCreateRequestFromJson(
 ) => OrganizationCreateRequest(
   name: json['name'] as String,
   fullName: json['full_name'] as String,
+  adminPassword: json['admin_password'] as String,
   country: json['country'] as String,
   bookBegin: json['book_begin'] as String,
   fpCode: (json['fp_code'] as num).toInt(),
@@ -107,6 +108,7 @@ Map<String, dynamic> _$OrganizationCreateRequestToJson(
 ) => <String, dynamic>{
   'name': instance.name,
   'full_name': instance.fullName,
+  'admin_password': instance.adminPassword,
   'country': instance.country,
   'book_begin': instance.bookBegin,
   'gst_no': instance.gstNo,
