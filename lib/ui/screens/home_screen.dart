@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final _nameController = TextEditingController();
   final _fullNameController = TextEditingController();
   final _adminPasswordController = TextEditingController();
-  // final _countryController = TextEditingController(text: 'INDIA');
+  final _countryController = TextEditingController();
   final _bookController = TextEditingController();
   final _gstController = TextEditingController();
   final _fpController = TextEditingController();
@@ -165,7 +165,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   ),
-
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _countryController,
+                    decoration: _inputDecoration('Country'),
+                    validator: (value) => value == null || value.isEmpty ? 'Enter Country' : null,
+                  ),
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: _bookController,
@@ -224,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   name: _nameController.text,
                                   fullName: _fullNameController.text,
                                   adminPassword: _adminPasswordController.text,
-                                  country: 'INDIA', //_countryController.text,
+                                  country: _countryController.text,
                                   bookBegin: _bookController.text,
                                   gstNo: _gstController.text.isNotEmpty ? _gstController.text.trim() : null,
                                   fpCode: int.parse(_fpController.text),
@@ -287,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _nameController.dispose();
     _fullNameController.dispose();
     _adminPasswordController.dispose();
-    // _countryController.dispose();
+    _countryController.dispose();
     _bookController.dispose();
     _gstController.dispose();
     _fpController.dispose();
